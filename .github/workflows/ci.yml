@@ -22,8 +22,8 @@ jobs:
       - name: Install dependencies
         run: pip install -r requirements.txt
 
-      - name: Run linting (flake8)
+      - name: Run linting
         run: flake8 src/ --max-line-length=100
 
-      - name: Run tests (pytest)
+      - name: Run tests
         run: pytest tests/ -v
