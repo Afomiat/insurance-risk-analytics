@@ -10,8 +10,12 @@ venv/
 env/
 .env/
 
-# Data files
-data/
+# Ignore actual data files but allow DVC pointer files
+data/*.txt
+data/*.csv
+data/*.parquet
+data/*.zip
+!data/*.dvc
 
 # Jupyter checkpoints
 .ipynb_checkpoints/
