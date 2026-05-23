@@ -88,6 +88,8 @@ def add_derived_metrics(df: pd.DataFrame) -> pd.DataFrame:
 
     print("✅ Derived metrics added: LossRatio, Margin")
     return df
+
+
 def standardize_columns(df: pd.DataFrame) -> pd.DataFrame:
     """
     Standardize known inconsistent column names
@@ -107,11 +109,11 @@ def standardize_columns(df: pd.DataFrame) -> pd.DataFrame:
 
     # Map from actual column name → what we want to call it
     rename_map = {
-        'make'          : 'Make',
-        'kilowatts'     : 'Kilowatts',
-        'cubiccapacity' : 'Cubiccapacity',
-        'bodytype'      : 'Bodytype',
-        'mmcode'        : 'Mmcode',
+        'make': 'Make',
+        'kilowatts': 'Kilowatts',
+        'cubiccapacity': 'Cubiccapacity',
+        'bodytype': 'Bodytype',
+        'mmcode': 'Mmcode',
     }
 
     # Only rename columns that actually exist
@@ -124,6 +126,7 @@ def standardize_columns(df: pd.DataFrame) -> pd.DataFrame:
     df = df.rename(columns=rename_map)
     print(f"✅ Columns standardized: {list(rename_map.keys())}")
     return df
+
 
 def load_and_prepare(filepath: str) -> pd.DataFrame:
     """
@@ -140,4 +143,4 @@ def load_and_prepare(filepath: str) -> pd.DataFrame:
     df = fix_dtypes(df)
     df = standardize_columns(df)
     df = add_derived_metrics(df)
-    return df
+    return df
