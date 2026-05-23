@@ -1,26 +1,30 @@
-data/
-venv/
-__pycache__/
-*.pyc
-.ipynb_checkpoints/
-*.egg-info/
-.env
 # Virtual environment
 venv/
 env/
 .env/
 
-# Ignore actual data files but allow DVC pointer files
+# Data files - tracked by DVC instead of Git
 data/*.txt
 data/*.csv
 data/*.parquet
 data/*.zip
-!data/*.dvc
+data/*.xlsx
 
-# Jupyter checkpoints
-.ipynb_checkpoints/
+# Allow DVC pointer files through - NEVER ignore these
+!data/*.dvc
 
 # Python cache
 __pycache__/
 *.pyc
 *.pyo
+*.egg-info/
+
+# Jupyter checkpoints
+.ipynb_checkpoints/
+
+# Environment files
+.env
+
+# OS files
+.DS_Store
+Thumbs.db
