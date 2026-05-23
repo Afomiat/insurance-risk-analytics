@@ -1,0 +1,22 @@
+data/
+venv/
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+*.egg-info/
+.env
+# Virtual environment
+venv/
+env/
+.env/
+
+# Data files
+data/
+
+# Jupyter checkpoints
+.ipynb_checkpoints/
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
