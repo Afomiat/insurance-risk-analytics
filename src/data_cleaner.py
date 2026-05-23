@@ -14,7 +14,7 @@ sys.path.insert(0, os.path.abspath(
     os.path.join(os.path.dirname(__file__), '..')
 ))
 
-from src.data_loader import load_and_prepare
+from src.data_loader import load_and_prepare  # noqa: E402
 
 
 def remove_duplicates(df: pd.DataFrame) -> pd.DataFrame:
@@ -204,4 +204,4 @@ if __name__ == "__main__":
     clean_dataset(
         input_path='data/MachineLearningRating_v3.txt',
         output_path='data/cleaned_insurance_data.csv'
-    )
+    )
