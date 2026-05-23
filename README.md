@@ -1,10 +1,3 @@
-The issue is that GitHub README needs proper markdown formatting. Let me give you the complete file to copy-paste directly into your README.md in VS Code.
-
----
-
-Open `README.md` in VS Code, select ALL the content (`Ctrl+A`) and delete it, then paste this entire block:
-
-```markdown
 # 🛡️ Insurance Risk Analytics & Predictive Modeling
 
 ### AlphaCare Insurance Solutions (ACIS) — South Africa
@@ -32,10 +25,10 @@ ACIS is preparing for aggressive growth in the South African auto-insurance mark
 
 ## 🎯 Business Objectives
 
-1. Build a deep understanding of insurance risk metrics
-2. Statistically validate key hypotheses about risk drivers across provinces, zip codes, and gender
-3. Develop predictive models that estimate claim severity and probability of a claim
-4. Communicate findings in a clear business-facing report that ACIS leadership can act on
+1. Build a deep understanding of insurance risk metrics.
+2. Statistically validate key hypotheses about risk drivers across provinces, zip codes, and gender.
+3. Develop predictive models that estimate claim severity and probability of a claim.
+4. Communicate findings in a clear, business-facing report that ACIS leadership can act on.
 
 ---
 
@@ -45,21 +38,21 @@ Two derived metrics anchor the entire analysis:
 
 | Metric | Formula | Meaning |
 |---|---|---|
-| **Loss Ratio** | TotalClaims ÷ TotalPremium | Greater than 1.0 means losing money |
-| **Margin** | TotalPremium − TotalClaims | Per-policy profit in Rand |
+| **Loss Ratio** | $\text{TotalClaims} \div \text{TotalPremium}$ | Greater than 1.0 means losing money |
+| **Margin** | $\text{TotalPremium} - \text{TotalClaims}$ | Per-policy profit in Rand |
 
 ---
 
 ## 🗂️ Project Structure
 
-```
+```text
 insurance-risk-analytics/
 │
 ├── .github/
 │   └── workflows/
-│       └── ci.yml                           # GitHub Actions CI pipeline
+│       └── ci.yml                         # GitHub Actions CI pipeline
 │
-├── data/                                    # Tracked by DVC, NOT Git
+├── data/                                  # Tracked by DVC, NOT Git
 │   ├── MachineLearningRating_v3.txt         # v1: raw data
 │   ├── MachineLearningRating_v3.txt.dvc     # DVC pointer file
 │   ├── cleaned_insurance_data.csv           # v2: cleaned data
@@ -80,7 +73,7 @@ insurance-risk-analytics/
 │
 ├── reports/
 │   ├── final_report.md                      # Final business report
-│   ├── missing_values.png                   # Data quality chart
+│   ├── missing_values.png                    # Data quality chart
 │   ├── financial_distributions.png          # Distribution analysis
 │   ├── loss_ratio_by_province.png           # Regional risk chart
 │   ├── outlier_boxplots.png                 # Outlier detection
@@ -88,15 +81,14 @@ insurance-risk-analytics/
 │   ├── claims_by_vehicle_make.png           # Vehicle risk profiling
 │   ├── premium_vs_claims_zipcode.png        # Zip code scatter
 │   ├── correlation_matrix.png               # Feature correlations
-│   ├── geographic_trends.png               # Province analysis
+│   ├── geographic_trends.png                # Province analysis
 │   └── loss_ratio_vehicle_gender.png        # Demographic risk
 │
-├── tests/                                   # Automated tests
+├── tests/                                    # Automated tests
 ├── .dvc/                                    # DVC configuration
 ├── .gitignore                               # Git ignore rules
 ├── requirements.txt                         # Python dependencies
 └── README.md                                # This file
-```
 
 ---
 
