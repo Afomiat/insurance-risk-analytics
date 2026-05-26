@@ -147,6 +147,15 @@ def prepare_features(
     if 'HasClaim' in X.columns and target_col != 'HasClaim':
         X = X.drop(columns=['HasClaim'])
 
+    # Drop any datetime/timedelta columns that remain —
+    # they cannot be encoded and cause NaN issues downstream
+    datetime_cols = X.select_dtypes(
+        include=['datetime64', 'datetimetz', 'timedelta64']
+    ).columns.tolist()
+    if datetime_cols:
+        X = X.drop(columns=datetime_cols)
+        print(f"  ℹ️  Dropped datetime columns: {datetime_cols}")
+
     # Encode categorical columns
     # LabelEncoder converts text to numbers
     # e.g. 'Gauteng' → 3, 'Western Cape' → 8
@@ -162,6 +171,12 @@ def prepare_features(
     for col in X.select_dtypes(include=[np.number]).columns:
         if X[col].isnull().any():
             X[col] = X[col].fillna(X[col].median())
+
+    # Final safety net — catch any NaN that slipped through
+    # (e.g. columns whose entire median is also NaN)
+    if X.isnull().any().any():
+        X = X.fillna(0)
+        print("  ⚠️  Some NaN values filled with 0 (fallback)")
 
     feature_names = X.columns.tolist()
     print(f"  ✅ Features prepared: {len(feature_names)} features")
