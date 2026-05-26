@@ -330,7 +330,7 @@ def print_results(results: Dict) -> None:
     
     p_val = results.get('p_value')
     p_val_str = f"{p_val:.6f}" if p_val is not None else "None"
-    
+
     safe_print(f"  p-value:         {p_val_str}")
     safe_print(f"  Threshold:       {results.get('alpha')}")
     sig = "✅ YES" if results.get('significant') else "❌ NO"
@@ -338,4 +338,4 @@ def print_results(results: Dict) -> None:
     safe_print(f"  Decision:        {results.get('decision')}")
     if "error" in results:
         safe_print(f"  Note:            ⚠️ {results['error']}")
-    safe_print("=" * 60)
+    safe_print("=" * 60)
