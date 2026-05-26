@@ -125,8 +125,18 @@ def prepare_features(
         'Margin',      # derived from target — data leakage
     ]
 
-    # If predicting TotalClaims, also drop TotalPremium
-    # to avoid leakage (they're both financial outcomes)
+    # ── Leakage prevention ──────────────────────────────────
+    # LogClaims = log1p(TotalClaims) — perfectly correlated
+    # Must drop TotalClaims when predicting LogClaims
+    if target_col == 'LogClaims':
+        always_drop.extend(['TotalClaims', 'TotalPremium'])
+
+    # HasClaim = (TotalClaims > 0) — directly derived
+    # Must drop TotalClaims and LogClaims when predicting HasClaim
+    if target_col == 'HasClaim':
+        always_drop.extend(['TotalClaims', 'LogClaims', 'TotalPremium'])
+
+    # If predicting raw TotalClaims, drop TotalPremium
     if target_col == 'TotalClaims':
         always_drop.append('TotalPremium')
     if target_col == 'TotalPremium':
@@ -144,6 +154,7 @@ def prepare_features(
     X = df.drop(columns=[target_col])
 
     # Also drop HasClaim if it exists and we're not targeting it
+    # (HasClaim is directly derived from TotalClaims — leakage)
     if 'HasClaim' in X.columns and target_col != 'HasClaim':
         X = X.drop(columns=['HasClaim'])
 
