@@ -4,7 +4,7 @@ import numpy as np
 import pandas as pd
 from scipy import stats
 from statsmodels.stats.proportion import proportions_ztest
-from typing import Tuple, Dict
+from typing import Dict
 
 
 def test_claim_frequency(
@@ -115,7 +115,10 @@ def test_claim_severity(
             "alpha":            alpha,
             "decision":         "FAIL TO REJECT H₀",
             "significant":      False,
-            "error":            "Insufficient claim data for severity test (less than 2 claims in one of the groups)"
+            "error": (
+                "Insufficient claim data for severity test "
+                "(less than 2 claims in one of the groups)"
+            )
         }
 
     # For large samples, t-test and z-test converge
@@ -233,9 +236,9 @@ def test_chi_squared(
     """
     # Build contingency table
     # [[claimed_A, not_claimed_A], [claimed_B, not_claimed_B]]
-    claimed_a     = (group_a > 0).sum()
+    claimed_a = (group_a > 0).sum()
     not_claimed_a = (group_a == 0).sum()
-    claimed_b     = (group_b > 0).sum()
+    claimed_b = (group_b > 0).sum()
     not_claimed_b = (group_b == 0).sum()
 
     contingency_table = np.array([
@@ -273,7 +276,7 @@ def print_results(results: Dict) -> None:
     Makes results readable without needing a DataFrame.
     """
     import sys
-    
+
     def safe_print(text: str) -> None:
         try:
             print(text)
@@ -302,12 +305,12 @@ def print_results(results: Dict) -> None:
     safe_print(f"  TEST: {results.get('test_type', 'Unknown')}")
     safe_print(f"  KPI:  {results.get('kpi', 'Unknown')}")
     safe_print("=" * 60)
-    
+
     n_a = results.get('n_a')
     n_b = results.get('n_b')
     n_a_str = f"{n_a:,}" if n_a is not None else "None"
     n_b_str = f"{n_b:,}" if n_b is not None else "None"
-    
+
     safe_print(f"  Group A ({results.get('group_a')}):  n = {n_a_str}")
     safe_print(f"  Group B ({results.get('group_b')}):  n = {n_b_str}")
     safe_print("-" * 60)
@@ -320,14 +323,18 @@ def print_results(results: Dict) -> None:
     if 'mean_a' in results:
         safe_print(f"  Mean Claim A:    R {results['mean_a']:,.2f}")
         safe_print(f"  Mean Claim B:    R {results['mean_b']:,.2f}")
-        safe_print(f"  Difference:      R {results['difference']:+,.2f} ({results['pct_difference']:+.1f}%)")
+        diff_val = results['difference']
+        pct_diff = results['pct_difference']
+        safe_print(
+            f"  Difference:      R {diff_val:+,.2f} ({pct_diff:+.1f}%)"
+        )
     if 'mean_margin_a' in results:
         safe_print(f"  Mean Margin A:   R {results['mean_margin_a']:,.2f}")
         safe_print(f"  Mean Margin B:   R {results['mean_margin_b']:,.2f}")
         safe_print(f"  Difference:      R {results['difference']:+,.2f}")
 
     safe_print("-" * 60)
-    
+
     p_val = results.get('p_value')
     p_val_str = f"{p_val:.6f}" if p_val is not None else "None"
 
